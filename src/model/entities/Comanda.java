@@ -7,6 +7,7 @@ import java.util.Objects;
 public class Comanda implements Serializable {
 	
 	/**
+	 * Classe responsável pelo mapeamento dos dados.
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -118,15 +119,12 @@ public class Comanda implements Serializable {
 	public void setCD_USU_ATU(int cD_USU_ATU) {
 		CD_USU_ATU = cD_USU_ATU;
 	}
-
-
-
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(CD_PERSON, ID);
+		return Objects.hash(CD_AREA_EVT, CD_PERSON, CD_USU_ATD, CD_USU_ATU, DH_ATD, DH_ATU, ID, NR_COMANDA, TP_PERSON,
+				TP_SIT);
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -137,16 +135,17 @@ public class Comanda implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Comanda other = (Comanda) obj;
-		return Objects.equals(CD_PERSON, other.CD_PERSON) && Objects.equals(ID, other.ID);
+		return CD_AREA_EVT == other.CD_AREA_EVT && CD_PERSON == other.CD_PERSON && CD_USU_ATD == other.CD_USU_ATD
+				&& CD_USU_ATU == other.CD_USU_ATU && Objects.equals(DH_ATD, other.DH_ATD)
+				&& Objects.equals(DH_ATU, other.DH_ATU) && ID == other.ID && NR_COMANDA == other.NR_COMANDA
+				&& Objects.equals(TP_PERSON, other.TP_PERSON) && Objects.equals(TP_SIT, other.TP_SIT);
 	}
-
-
 
 	@Override
 	public String toString() {
-		return "Comanda [ID=" + ID + ", CD_PERSON=" + CD_PERSON + ", NR_COMANDA=" + NR_COMANDA + ", CD_AREA_EVT="
-				+ CD_AREA_EVT + ", TP_PERSON=" + TP_PERSON + ", DH_ATD=" + DH_ATD + ", CD_USU_ATD=" + CD_USU_ATD
-				+ ", TP_SIT=" + TP_SIT + ", DH_ATU=" + DH_ATU + ", CD_USU_ATU=" + CD_USU_ATU + "]";
+		return "Comanda [ID = " + ID + ", CD_PERSON = " + CD_PERSON + ", NR_COMANDA = " + NR_COMANDA + ", CD_AREA_EVT = "
+				+ CD_AREA_EVT + ", TP_PERSON = " + TP_PERSON + ", DH_ATD = " + DH_ATD + ", CD_USU_ATD = " + CD_USU_ATD
+				+ ", TP_SIT = " + TP_SIT + ", DH_ATU = " + DH_ATU + ", CD_USU_ATU = " + CD_USU_ATU + " ]";
 	}
 	
 }
