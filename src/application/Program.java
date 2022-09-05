@@ -2,6 +2,8 @@ package application;
 
 import java.util.Date;
 
+import model.dao.ComandaDao;
+import model.dao.DaoFactory;
 import model.entities.Comanda;
 
 
@@ -13,6 +15,10 @@ public class Program {
 			
 		Comanda com = new Comanda (1, 22, 35, 41, "Sócio", new Date(), 12, true, new Date(), 6);
 		System.out.println(com);
+		
+		ComandaDao comandaDao = DaoFactory.createComandaDao();
+		
+		
 	}
 
 }
