@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import db.DB;
@@ -12,6 +14,8 @@ import model.dao.ComandaDao;
 import model.entities.Comanda;
 
 public class ComandaDaoJDBC implements ComandaDao {
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
 
 	private Connection conn;
 
@@ -21,13 +25,29 @@ public class ComandaDaoJDBC implements ComandaDao {
 
 	@Override
 	public void insert(Comanda com) {
-		// TODO Auto-generated method stub
+//		Connection conn = null;
+//		PreparedStatement st = null;
+//		ResultSet rt = null;
+//		
+//		try {
+//			st = conn.prepareStatement("INSERT INTO evento_comanda VALUES = ?, ?, ?, ?, ?, ?, ?, ?, ?, ?");
+//			st.setInt(1, 4);
+//			st.setInt(2, 2635);
+//			st.setInt(3, 1004);
+//			st.setInt(4, 155);
+//			st.setString(5, "Dependente");
+//			st.setDate(6, new java.sql.Date(sdf.parse("12/09/2022").getDate()));
+//			st.setInt(7, 2923);
+//			st.setBoolean(8, false);
+//			st.setDate(9, null)
+//			
+//		}
 
 	}
 
-	@Override
+	@Override //REVISAR CÓDIGO
 	public void update(Comanda com) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -76,8 +96,29 @@ public class ComandaDaoJDBC implements ComandaDao {
 
 	@Override
 	public List<Comanda> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rt = null;
+		try {
+			st = conn.prepareStatement("SELECT * FROM evento_comanda");
+			rt = st.executeQuery();
+			
+			List<Comanda> list = new ArrayList<>();
+			 while(rt.next()) {
+				Comanda comm = instatiateComanda(rt);
+				list.add(comm);
+			 }
+			 return list;
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.getConnection();
+			DB.closeConnection();
+			DB.closeStatement(st);
+			DB.closeResultSet(rt);
+		}
+		
 	}
 
 }
