@@ -24,9 +24,10 @@ public class Program {
 		
 		
 		System.out.println("\n === Teste 3 Comanda Insert ===");
-		Comanda newComanda = new Comanda(6, 2030, 3635, 155, "Sócio", new Date(), 6965, false, new Date(), 9999);
-		System.out.println(newComanda);
+		Comanda newComanda = new Comanda(5, 2030, 3635, 155, "Sócio", new Date(), 6965, false, new Date(), 9999);
+		comandaDao.insert(newComanda);
 		System.out.println(newComanda.getID());
+		
 		
 		System.out.println("\n === Teste 4 Comanda DELETE ===");
 		System.out.println("Digite o id para ser deletado");

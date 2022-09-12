@@ -50,18 +50,18 @@ public class ComandaDaoJDBC implements ComandaDao {
 			
 			int linhasAfetadas = st.executeUpdate();
 			
-//			if(linhasAfetadas > 0) {
-//				ResultSet rs = st.getGeneratedKeys();
-//				if(rs.next()) {
-//					int id = rs.getInt(1);
-//					com.setID(id);
-//				}
-//				DB.closeResultSet(rs);
-//			}
-//			else {
-//				throw new DbException("Erro, nenhuma linha afetada !");
-//					
-//			}
+			if(linhasAfetadas > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				if(rs.next()) {
+					int id = rs.getInt(1);
+					com.setID(id);
+				}
+				DB.closeResultSet(rs);
+			}
+			else {
+				throw new DbException("Erro, nenhuma linha afetada !");
+					
+			}
 		}
 		catch(SQLException e) {
 			throw new DbException(e.getMessage());
