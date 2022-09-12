@@ -4,12 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 import db.DB;
 import db.DbException;
+import db.DbIntegrityException;
 import model.dao.ComandaDao;
 import model.entities.Comanda;
 
@@ -25,24 +28,50 @@ public class ComandaDaoJDBC implements ComandaDao {
 
 	@Override
 	public void insert(Comanda com) {
-//		Connection conn = null;
-//		PreparedStatement st = null;
-//		ResultSet rt = null;
-//		
-//		try {
-//			st = conn.prepareStatement("INSERT INTO evento_comanda VALUES = ?, ?, ?, ?, ?, ?, ?, ?, ?, ?");
-//			st.setInt(1, 4);
-//			st.setInt(2, 2635);
-//			st.setInt(3, 1004);
-//			st.setInt(4, 155);
-//			st.setString(5, "Dependente");
-//			st.setDate(6, new java.sql.Date(sdf.parse("12/09/2022").getDate()));
-//			st.setInt(7, 2923);
-//			st.setBoolean(8, false);
-//			st.setDate(9, null)
-//			
-//		}
-
+		PreparedStatement st = null;
+		
+		try {
+			
+			st = conn.prepareStatement("INSERT INTO evento_comanda "
+					+ "(ID, CD_PERSON, NR_COMANDA, CD_AREA_EVT, TP_PERSON, DH_ATD, CD_USU_ATD, TP_SIT, DH_ATU, CD_USU_ATU) "
+					+ "VALUES "
+					+ " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
+					Statement.RETURN_GENERATED_KEYS);
+			st.setInt(1, com.getID());
+			st.setLong(2, com.getCD_PERSON());
+			st.setLong(3, com.getNR_COMANDA());
+			st.setLong(4, com.getCD_AREA_EVT());
+			st.setString(5, com.getTP_PERSON());
+			st.setDate(6, new java.sql.Date(com.getDH_ATD().getTime()));
+			st.setLong(7, com.getCD_USU_ATD());
+			st.setBoolean(8, com.getTP_SIT());
+			st.setDate(9, new java.sql.Date(com.getDH_ATU().getTime()));
+			st.setLong(10, com.getCD_USU_ATU());
+			
+			int linhasAfetadas = st.executeUpdate();
+			
+//			if(linhasAfetadas > 0) {
+//				ResultSet rs = st.getGeneratedKeys();
+//				if(rs.next()) {
+//					int id = rs.getInt(1);
+//					com.setID(id);
+//				}
+//				DB.closeResultSet(rs);
+//			}
+//			else {
+//				throw new DbException("Erro, nenhuma linha afetada !");
+//					
+//			}
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+		
+		
+		
 	}
 
 	@Override //REVISAR CÓDIGO
@@ -52,9 +81,30 @@ public class ComandaDaoJDBC implements ComandaDao {
 	}
 
 	@Override
-	public void deleteById(int id) {
-		// TODO Auto-generated method stub
-
+	public void deleteById(int ID) {
+		
+		PreparedStatement st = null;
+		
+		try {
+			conn = DB.getConnection();
+			
+			st = conn.prepareStatement(
+					"DELETE FROM evento_comanda "
+					+ "WHERE "
+					+ "ID = ? "
+					);
+			st.setInt(1, ID);
+			
+		    st.executeUpdate();
+				
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+		
 	}
 
 	@Override
@@ -62,7 +112,7 @@ public class ComandaDaoJDBC implements ComandaDao {
 		PreparedStatement st = null;
 		ResultSet rt = null;
 		try {
-			st = conn.prepareStatement("SELECT * FROM  evento_comanda WHERE ID = ?");
+			st = conn.prepareStatement("SELECT * FROM evento_comanda WHERE ID = ?");
 			st.setInt(1, ID);
 			rt = st.executeQuery();
 			if(rt.next()) {
@@ -113,8 +163,8 @@ public class ComandaDaoJDBC implements ComandaDao {
 			throw new DbException(e.getMessage());
 		}
 		finally {
-			DB.getConnection();
-			DB.closeConnection();
+			
+			
 			DB.closeStatement(st);
 			DB.closeResultSet(rt);
 		}
