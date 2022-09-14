@@ -69,9 +69,6 @@ public class ComandaDaoJDBC implements ComandaDao {
 		finally {
 			DB.closeStatement(st);
 		}
-		
-		
-		
 	}
 
 	@Override //REVISAR CÓDIGO
@@ -162,13 +159,9 @@ public class ComandaDaoJDBC implements ComandaDao {
 		catch(SQLException e) {
 			throw new DbException(e.getMessage());
 		}
-		finally {
-			
-			
+		finally {	
 			DB.closeStatement(st);
 			DB.closeResultSet(rt);
-		}
-		
+		}	
 	}
-
 }
