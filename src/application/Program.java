@@ -41,10 +41,12 @@ public class Program {
 		List<Comanda> list = comandaDao.findAll();
 		for(Comanda comm : list) {
 			System.out.println(comm);
+			
+			sc.close();
 		}
 		
 		
-		sc.close();
+		
 	}
 
 }
