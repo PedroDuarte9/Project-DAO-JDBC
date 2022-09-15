@@ -10,6 +10,11 @@ import model.entities.Comanda;
 
 public class Program {
 
+	/*Classe principal que está responsável pelos métodos do crud
+	 * Precisa ser migrada para classes específicas
+	 * 
+	 * */
+	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
@@ -24,7 +29,7 @@ public class Program {
 		
 		
 		System.out.println("\n === Teste 3 Comanda Insert ===");
-		Comanda newComanda = new Comanda(5, 2030, 3635, 155, "Sócio", new Date(), 6965, false, new Date(), 9999);
+		Comanda newComanda = new Comanda(3, 2030, 3635, 155, "Sócio", new Date(), 6965, false, new Date(), 9999);
 		comandaDao.insert(newComanda);
 		System.out.println(newComanda.getID());
 		
@@ -36,11 +41,20 @@ public class Program {
 		System.out.println("Delete completo");
 		
 		
+		System.out.println("\n === Teste 5 Comanda Update ===");
+		Comanda novaComanda = comandaDao.findById(1);
+		novaComanda.setTP_PERSON("Sócio Novo");
+		System.out.println("Update feito !");
+		System.out.println(novaComanda);
+		
+		
 		
 		System.out.println("\n === TESTE 2: Comanda findAll ===");
 		List<Comanda> list = comandaDao.findAll();
 		for(Comanda comm : list) {
 			System.out.println(comm);
+			
+			
 			
 			sc.close();
 		}

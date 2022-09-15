@@ -73,9 +73,37 @@ public class ComandaDaoJDBC implements ComandaDao {
 
 	@Override //REVISAR CÓDIGO
 	public void update(Comanda com) {
+		PreparedStatement st = null;
 		
-
+		try {
+			
+			st = conn.prepareStatement("UPDATE evento_comanda "
+					+ "SET ID = ?, CD_PERSON = ?, NR_COMANDA = ?, CD_AREA_EVT = ?, TP_PERSON = ?, DH_ATD = ?, CD_USU_ATD = ?, TP_SIT = ?, DH_ATU = ?, CD_USU_ATU = ? ) "
+					+ "WHERE "
+					+ " ID = ?  ",
+					Statement.RETURN_GENERATED_KEYS);
+			st.setInt(1, com.getID());
+			st.setLong(2, com.getCD_PERSON());
+			st.setLong(3, com.getNR_COMANDA());
+			st.setLong(4, com.getCD_AREA_EVT());
+			st.setString(5, com.getTP_PERSON());
+			st.setDate(6, new java.sql.Date(com.getDH_ATD().getTime()));
+			st.setLong(7, com.getCD_USU_ATD());
+			st.setBoolean(8, com.getTP_SIT());
+			st.setDate(9, new java.sql.Date(com.getDH_ATU().getTime()));
+			st.setLong(10, com.getCD_USU_ATU());
+			
+			st.executeUpdate();
+	
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
+
 
 	@Override
 	public void deleteById(int ID) {

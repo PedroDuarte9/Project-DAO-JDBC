@@ -8,6 +8,7 @@ public class Comanda implements Serializable {
 	
 	/**
 	 * Classe responsável pelo mapeamento dos dados.
+	 * @author Pedro Duarte
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
