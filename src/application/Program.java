@@ -28,10 +28,10 @@ public class Program {
 //		System.out.println(comm0);
 		
 		
-		System.out.println("====== Teste 3:  Insert =====" );
-		Comanda newComanda = new Comanda(8, 2300, 1003, 155, "Sócio Proprietário", new Date(), 12, true, new Date(), 6060 );
-		comandaDao.insert(newComanda);
-		System.out.println("Inserted! New id: " + newComanda.getID());
+//		System.out.println("====== Teste 3:  Insert =====" );
+//		Comanda newComanda = new Comanda(9, 2300, 1003, 155, "Sócio Proprietário", new Date(), 12, true, new Date(), 6060 );
+//		comandaDao.insert(newComanda);
+//		System.out.println("Inserted! New id: " + newComanda.getID());
 		
 		
 //		System.out.println("\n === Teste 4 Comanda DELETE ===");
@@ -43,7 +43,8 @@ public class Program {
 		
 		System.out.println("\n === Teste 5 Comanda Update ===");
 		Comanda novaComanda = comandaDao.findById(3);
-		novaComanda.setCD_PERSON(2131);
+		novaComanda.setCD_PERSON(3030);
+		comandaDao.update(novaComanda);
 		System.out.println(novaComanda);
 		System.out.println(novaComanda.getID());
 		System.out.println("Update feito !");

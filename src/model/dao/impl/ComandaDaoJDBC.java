@@ -76,7 +76,7 @@ public class ComandaDaoJDBC implements ComandaDao {
 			
 			st = conn.prepareStatement(
 					"UPDATE evento_comanda "
-					+ "CD_PERSON = ? "
+					+ "SET CD_PERSON = ? "
 					+ "WHERE "
 					+ " ID = ? ");
 			st.setLong(1, com.getCD_PERSON());
