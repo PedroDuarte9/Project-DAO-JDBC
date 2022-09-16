@@ -22,33 +22,31 @@ public class Program {
 //		System.out.println(com);
 
 		ComandaDao comandaDao = DaoFactory.createComandaDao();
-
+		
+		System.out.println("====== Teste 1:  findById =====" );
 //		Comanda comm0 = comandaDao.findById(1);
 //		System.out.println(comm0);
 		
 		
-		
-		System.out.println("\n === Teste 3 Comanda Insert ===");
-		Comanda newComanda = new Comanda(2, 2030, 3635, 155, "Sócio", new Date(), 6965, false, new Date(), 9999);
+		System.out.println("====== Teste 3:  Insert =====" );
+		Comanda newComanda = new Comanda(8, 2300, 1003, 155, "Sócio Proprietário", new Date(), 12, true, new Date(), 6060 );
 		comandaDao.insert(newComanda);
-		System.out.println(newComanda.getID());
+		System.out.println("Inserted! New id: " + newComanda.getID());
 		
 		
-		System.out.println("\n === Teste 4 Comanda DELETE ===");
-		System.out.println("Digite o id para ser deletado");
-		int id = sc.nextInt();
-		comandaDao.deleteById(id);
-		System.out.println("Delete completo");
+//		System.out.println("\n === Teste 4 Comanda DELETE ===");
+//		System.out.println("Digite o id para ser deletado");
+//		int id = sc.nextInt();
+//		comandaDao.deleteById(id);
+//		System.out.println("Delete completo");
 		
 		
 		System.out.println("\n === Teste 5 Comanda Update ===");
-		Comanda novaComanda = comandaDao.findById(1);
+		Comanda novaComanda = comandaDao.findById(3);
 		novaComanda.setCD_PERSON(2131);
-		novaComanda.setDH_ATD(null);
-		novaComanda.setTP_PERSON("Sócio Novo");
-		System.out.println("Update feito !");
 		System.out.println(novaComanda);
-		
+		System.out.println(novaComanda.getID());
+		System.out.println("Update feito !");
 		
 		
 		System.out.println("\n === TESTE 2: Comanda findAll ===");
